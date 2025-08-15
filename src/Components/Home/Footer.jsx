@@ -127,7 +127,7 @@ const Footer = () => {
 </div>
 <footer className="footer sm:footer-horizontal footer-center bg-stone-950 text-white p-4">
   <aside>
-    <p>Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
+    <p>Copyright © {new Date().getFullYear()} - All right reserved by Amader Ranna Ghor </p>
   </aside>
 </footer>
 </div>
