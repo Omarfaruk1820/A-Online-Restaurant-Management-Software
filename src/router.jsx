@@ -98,7 +98,7 @@ element:<PaymentHistory></PaymentHistory>
     {
       path:"updateItem/:id",
       element: <UpdateItems></UpdateItems>,
-      loader:({params})=>fetch(`http://localhost:5000/menu/${params.id}`)
+      loader:({params})=>fetch(`https://bistro-boss-resturant-server-side-psi.vercel.app/menu/${params.id}`)
     },
     {
       path:'adminHome',

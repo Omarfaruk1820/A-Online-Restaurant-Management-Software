@@ -18,7 +18,7 @@ import { Rating } from "@smastrom/react-rating";
 const Tesmonitals = () => {
     const [reviews,setReview]=useState([])
     useEffect(()=>{
-        fetch('http://localhost:5000/reviews')
+        fetch('https://bistro-boss-resturant-server-side-psi.vercel.app/reviews')
         .then(res=>res.json())
         .then(data=>setReview(data))
     },[])
