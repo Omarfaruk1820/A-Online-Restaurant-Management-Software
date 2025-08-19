@@ -23,12 +23,14 @@ const PopularMenu = () => {
 
             </SectionTitle>
             </section>
-           
-            <div className='grid md:grid-cols-2 gap-5 mt-10'>
+          
+           <div className="m-10">
+             <div className='grid md:grid-cols-2 gap-5 mt-10'>
                 {
                     popular.map(item=> <MenuItems key={item._id} item={item}></MenuItems>)
                 }
             </div>
+           </div>
         </div>
     );
 };

@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { FaCartArrowDown } from "react-icons/fa6";
 import useCart from "../Hooks/useCart";
 import useAdmin from "../Hooks/useAdmin";
+import { cn } from './../../lib/utils';
 
 
 const Navbar = () => {
@@ -39,20 +40,10 @@ const Navbar = () => {
 
 const navliks = (
     <>
-      <li>
-        {" "}
-        <NavLink to="/">Home</NavLink>{" "}
-      </li>
-      <li>
-        {" "}
-        <NavLink to="/menu">Menu</NavLink>{" "}
-      </li>
-    
-      <li>
-        {" "}
-        <NavLink to="/orderFood/salad">Food Order</NavLink>{" "}
-      </li>
-      <li>
+      <li> <NavLink to="/">Home</NavLink></li>
+      <li><NavLink to="/menu">Menu</NavLink></li>
+     <li><NavLink to="/orderFood/salad"> Order Food</NavLink></li>
+     <li>
         <Link to='/dashboard/cart'>
         <button className="btn btn-sm">
 <FaCartArrowDown />
@@ -64,7 +55,10 @@ const navliks = (
     </>
   );
   return (
-    <div className="navbar fixed z-10 bg-opacity-30 text-white bg-black shadow-sm">
+   <div   className={cn(
+        "fixed w-full z-40 transition-all duration-300  bg-background/80 backdrop-blur-md shadow-xs"
+      )}>
+     <div className="navbar  text-green-500 bg-black ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -86,7 +80,7 @@ const navliks = (
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-32  shadow"
           >
             {navliks}
           </ul>
@@ -99,16 +93,17 @@ const navliks = (
       <div className="navbar-end">
    
 {user? <>
-<span className='text-white'>{user.email}</span>
-<button onClick={handleLogOutUser} className='btn btn-primary'>SignOut</button>
+<span className='text-white mr-1'>{user.email}</span>
+<button onClick={handleLogOutUser} className='btn  cosmic-button '>SignOut</button>
 </>: <>
-<Link to='/login'> <button className='btn btn-accent'>Login</button> </Link>
+<Link to='/login'> <button className='btn cosmic-button'>Login</button> </Link>
 </>
 
 }
   
       </div>
     </div>
+   </div>
   );
 };
 

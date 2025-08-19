@@ -14,15 +14,7 @@ const useMenu = () => {
             setLoading(false)
             })
        },[])
-    // const {refetch,data:menus=[],isPending:loading}=useQuery({
-    //   queryKey:['menu'],
-    //   queryFn: async()=>{
-    //     const res=await axiosPublic.get('/menu')
-    //     return res.data;
 
-    //   }
-
-    // })
        return [menus,loading]
 };
 
