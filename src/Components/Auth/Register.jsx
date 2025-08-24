@@ -74,14 +74,14 @@ const Register = () => {
                   className="input"
                   placeholder="Name"
                 />
-                <label className="label">Photo</label>
+                {/* <label className="label">Photo</label>
                 <input
                   type="text"
                   name="photo"
                    {...register("photo",{ required: true })}
                   className="input"
                   placeholder="Photo URL"
-                />
+                /> */}
                 <label className="label">Email</label>
                 <input
                   name="email"

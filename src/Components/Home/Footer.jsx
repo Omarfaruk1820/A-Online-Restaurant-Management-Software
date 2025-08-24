@@ -4,8 +4,9 @@ import { FaArrowCircleUp } from "react-icons/fa";
 const Footer = () => {
   return (
     <div>
-      <footer className="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
-        <aside>
+      <footer className="footer sm:footer-horizontal md:flex justify-between bg-neutral text-neutral-content p-10">
+       <div>
+         <aside>
           <NavLink to="">
             <img
               src={foodPhoto}
@@ -20,7 +21,9 @@ const Footer = () => {
           </p>
           <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
         </aside>
-        <nav>
+       </div>
+       <div>
+         <nav>
           <h6 className="footer-title">Social</h6>
           <div className="grid grid-flow-col gap-4">
             <a>
@@ -58,9 +61,10 @@ const Footer = () => {
             </a>
           </div>
         </nav>
+       </div>
       </footer>
 
-      <footer className="py-5 px-4 bg-card relative border-t border-border  pt-8 flex flex-wrap justify-between items-center">
+      <footer className="py-5 px-4 relative  bg-neutral text-neutral-content border-border  pt-8 flex flex-wrap justify-between items-center">
         <p className="text-sm text-muted-foreground">
           @copy:{new Date().getFullYear()} Joinob Software company ltd,All right reserved.
         </p>
