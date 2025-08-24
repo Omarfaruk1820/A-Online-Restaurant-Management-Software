@@ -68,12 +68,12 @@ setDisabled(true)
        <form  onSubmit={handleLoginUser}>
          <fieldset className="fieldset">
           <label className="label">Email</label>
-          <input name='email' type="email" className="input" placeholder="Email" />
+          <input name='email' type="email" className="input " placeholder="Email" />
           <label className="label">Password</label>
           <input name='password' type="password" className="input" placeholder="Password" />
           <label className="label"> <LoadCanvasTemplate /></label>
          
-          <input ref={captchaRef} name='captcha' type="text" className="input" placeholder="Captcha" />
+          <input ref={captchaRef} name='captcha' type="text"  className="input " placeholder="Captcha" />
  <button onClick={validationCattecha} className="btn btn-xs">Validation</button>
           {/* <div><a className="link link-hover">Forgot password?</a></div> */}
           <button disabled={disabled} className="btn btn-neutral mt-4">Login</button>
