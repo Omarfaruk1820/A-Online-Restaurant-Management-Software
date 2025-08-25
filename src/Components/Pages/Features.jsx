@@ -16,15 +16,15 @@ const Features = () => {
                </div>
                
                 <div className='md:ml-10 items-center'>
-                    <p className="text-pink-500 text-3xl">JUN 18 2025</p>
-                    <p className=" text-black text-2xl">Where can i get some</p>
+                    <p className="text-black text-2xl">JUN 18 2025</p>
+                    <p className=" text-black text-2xl">Where can I get some</p>
                     <p className='text-black'>Lorem ipsum dolor sit amet,
                          consectetur adipisicing elit. At qui suscipit accusantium ab porro sint debitis ipsam ex,
                           architecto excepturi, fugit, laboriosam labore voluptate eligendi.
                          Sapiente facere cumque dolor. Adipisci.</p>
                         <NavLink to="/orderFood/salad">
                            <button className="btn border-0 border-b-4 mt-5 
-                          text-white cosmic-button">Order Now</button>
+                          text-white mb-5 cosmic-button">Order Now</button>
                         </NavLink>
                 </div>
                  </div> 
