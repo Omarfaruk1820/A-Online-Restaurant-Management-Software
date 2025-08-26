@@ -7,7 +7,7 @@ const MenuCategori = ({items,title,img}) => {
     return (
        <div className=" container max-w-7xl mx-auto">
         {title&& <Cover image={img} title="Our Menu"></Cover>}
-         <div className='grid md:grid-cols-2 grid-col-1 gap-5 mt-10'>
+         <div className='grid md:grid-cols-2  gap-5 mt-10'>
                 {
                     items.map(item=> <MenuItems key={item._id} item={item}></MenuItems>)
                 }

@@ -61,10 +61,10 @@ setDisabled(true)
   <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="text-center lg:text-left">
       {/* <Lottie className='w-[300px]' animationData={loginData}></Lottie> */}
-      <img src={loginPhoto} className="md:w-[380px]" alt="Login photo" />
+      <img src={loginPhoto} className="md:w-[350px]" alt="Login photo" />
      
     </div>
-    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+    <div className="card bg-white w-full max-w-sm shrink-0 shadow-2xl">
       <h1 className="text-3xl text-center font-bold">Login now!</h1>
       <div className="card-body">
        <form  onSubmit={handleLoginUser}>
