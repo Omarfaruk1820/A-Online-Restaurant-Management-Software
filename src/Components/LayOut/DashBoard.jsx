@@ -20,7 +20,7 @@ const DashBoard = () => {
      <li><NavLink to='/dashboard/adminHome'> <IoHome /> Admin Home</NavLink></li>
     <li><NavLink to='/dashboard/addItems'> <RiReservedFill /> Add Items</NavLink></li>
     <li><NavLink to='/dashboard/manageItems'><FaCartArrowDown />  Mange Items </NavLink></li>
-    <li><NavLink to='/dashboard/bookin'> <RiSecurePaymentLine /> Manage Booking</NavLink></li>
+    <li><NavLink to='/dashboard/bookin'> <RiSecurePaymentLine /> Manage Bookings</NavLink></li>
     <li><NavLink to='/dashboard/allUser'><VscPreview /> All Users</NavLink></li>
     <li><NavLink to='/dashboard/booking'> <TbBrandBooking /> My  Booking</NavLink></li>
     </>:<>
