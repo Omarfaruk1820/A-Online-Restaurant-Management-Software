@@ -1,9 +1,9 @@
 import Swal from "sweetalert2";
 import useAuth from "../../Auth/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
-// import axios from "axios";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useCart from "../../Hooks/useCart";
+import { FaCartPlus, FaDollarSign } from "react-icons/fa";
 
 const FoodCard = ({ item }) => {
   const navigate = useNavigate();
@@ -15,20 +15,13 @@ const FoodCard = ({ item }) => {
 
   const handleAddToCart = () => {
     if (user && user.email) {
-      const cartItem = {
-        menuId: _id,
-        email: user.email,
-        name,
-        image,
-        price,
-      };
+      const cartItem = { menuId: _id, email: user.email, name, image, price };
       axiosSecure.post("/cart", cartItem).then((res) => {
-        console.log(res.data);
         if (res.data.insertedId) {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: `${name} added to the your cart`,
+            title: `${name} added to your cart`,
             showConfirmButton: false,
             timer: 1500,
           });
@@ -46,31 +39,45 @@ const FoodCard = ({ item }) => {
         confirmButtonText: "Yes, login!",
       }).then((result) => {
         if (result.isConfirmed) {
-          // Swal.fire({
-          //   title: "Deleted!",
-          //   text: "Your file has been deleted.",
-          //   icon: "success"
-          // });
           navigate("/login", { state: { from: location } });
         }
       });
     }
   };
+
   return (
-    <div className="container max-w-5xl mx-auto ">
-      <div className="card group bg-card rounded-lg overflow-hidden shadow-xs card-hover">
-        <figure className="px-5 pt-5 h-48 overflow-hidden">
-          <img src={image} alt="photo" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-          <h1 className="text-orange-500 text-2xl absolute font-medium right-0 top-[2px]">${price}</h1>
-        </figure>
-        <div className="card-body items-center  text-center">
-          <h2 className="text-xl font-semibold mb-1">{name}</h2>
-          <p className="text-muted-foreground text-sm  mb-4">{recipe}</p>
-          <div className="card-actions">
+    <div className="px-2 sm:px-3">
+      <div className="card bg-base-100 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group">
+        {/* Image & Price */}
+        <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <span className="absolute top-2 right-2 bg-yellow-400 text-black font-semibold px-3 py-1 rounded-lg shadow-lg flex items-center gap-1">
+            <FaDollarSign /> {price}
+          </span>
+        </div>
+
+        {/* Content */}
+        <div className="card-body text-center p-4 sm:p-5 flex flex-col justify-between">
+          <div>
+            <h2 className="text-lg sm:text-xl md:text-2xl font-semibold mb-2">
+              {name}
+            </h2>
+            <p className="text-sm sm:text-base text-gray-500 line-clamp-3">
+              {recipe}
+            </p>
+          </div>
+
+          {/* Add to Cart */}
+          <div className="mt-4">
             <button
-              onClick={() => handleAddToCart(item)}
-              className="btn cosmic-button"
+              onClick={handleAddToCart}
+              className="btn btn-accent w-full sm:w-auto px-4 py-2 sm:px-6 sm:py-2 rounded-lg flex items-center justify-center gap-2 transition hover:scale-105"
             >
+              <FaCartPlus className="text-lg" />
               Add To Cart
             </button>
           </div>

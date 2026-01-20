@@ -13,7 +13,7 @@ const DashBoard = () => {
     const [isAdmin]=useAdmin();
     return (
         <div className='flex'>
-            <div className="w-64 bg-amber-500 min-h-screen">
+            <div className="w-48 bg-amber-500 min-h-screen">
 <ul className="menu">
    {
     isAdmin?<>
@@ -28,8 +28,8 @@ const DashBoard = () => {
     <li><NavLink to='/dashboard/paymentHistory'> <RiReservedFill />paymentHistory</NavLink></li>
     <li><NavLink to='/dashboard/payment'> <RiSecurePaymentLine /> Payment</NavLink></li>
     <li><NavLink to='/dashboard/cart'><FaCartArrowDown />  My Cart :({cart.length}) </NavLink></li>
-    <li><NavLink to='/dashboard/review'><VscPreview /> Add Review</NavLink></li>
-    <li><NavLink to='/dashboard/booking'> <TbBrandBooking /> My  Booking</NavLink></li>
+    {/* <li><NavLink to='/dashboard/review'><VscPreview /> Add Review</NavLink></li>
+    <li><NavLink to='/dashboard/booking'> <TbBrandBooking /> My  Booking</NavLink></li> */}
     </>
    }
      <div className="divider">OR</div>

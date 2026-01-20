@@ -1,119 +1,149 @@
-// import { Link } from "react-router-dom";
-import Lottie from "lottie-react";
-import lotteRegister from "../../assets/register.json";
-import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
-
-import Swal from "sweetalert2";
+import { AuthContext } from "./AuthProvider";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import SocialLogin from "../Pages/Shared/SocialLogin";
-import { AuthContext } from "./AuthProvider";
-
+import Lottie from "lottie-react";
+import lotteRegister from "../../assets/register.json";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Register = () => {
-  const axiosPublic=useAxiosPublic()
- const navigate=useNavigate()
-   const {register, reset,   handleSubmit, formState: { errors },  } = useForm()
-  const { createUserWithLogin,updateUserProfile } = useContext(AuthContext);
-     const onSubmit = (data) => {
-        console.log(data)
-        createUserWithLogin(data.email,data.password)
-        .then(result=>{
-          console.log(result.user)
-        
-          updateUserProfile(data.name,data.photo)
-          .then(()=>{
-            const userInfo={
-              name:data.name,
-              email:data.email
-            }
-            axiosPublic.post('/user',userInfo)
-            .then(res=>{
-              if(res.data.insertedId){
-                 reset()
- console.log('Update profile')
-               Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "User Register Successfully",
-              showConfirmButton: false,
-              timer: 1500
-            });
-            navigate('/')
-           
+  const { createUserWithLogin, updateUserProfile } = useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    createUserWithLogin(data.email, data.password)
+      .then((result) => {
+        updateUserProfile(data.name, data.photo)
+          .then(() => {
+            const userInfo = {
+              name: data.name,
+              email: data.email,
+            };
+            axiosPublic.post("/user", userInfo).then((res) => {
+              if (res.data.insertedId) {
+                reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "User Registered Successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate("/");
               }
-            })
-           
+            });
           })
-          .catch(error=>{
-            console.log(error.message)
-          })
-        })
-        .catch(error=>{
-          console.log(error.message)
-        })
-    }
+          .catch((error) => console.log(error.message));
+      })
+      .catch((error) => console.log(error.message));
+  };
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <Lottie className="w-[300px]" animationData={lotteRegister}></Lottie>
+    <div className="min-h-screen bg-base-100 flex items-center justify-center px-4">
+      <div className="flex flex-col-reverse lg:flex-row-reverse items-center gap-10 max-w-6xl w-full">
+        {/* 🔹 Lottie Animation */}
+        <div className="w-full lg:w-1/2 flex justify-center">
+          <Lottie
+            className="w-[250px] sm:w-[350px] md:w-[400px]"
+            animationData={lotteRegister}
+          />
         </div>
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <h1 className="text-3xl text-center font-bold">Register now!</h1>
-          <div className="card-body">
-            <form onSubmit={  handleSubmit(onSubmit)}>
-              <fieldset className="fieldset">
-                <label className="label">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                   {...register("name",{ required: true })}
-                  className="input"
-                  placeholder="Name"
-                />
-                {/* <label className="label">Photo</label>
-                <input
-                  type="text"
-                  name="photo"
-                   {...register("photo",{ required: true })}
-                  className="input"
-                  placeholder="Photo URL"
-                /> */}
-                <label className="label">Email</label>
-                <input
-                  name="email"
-                  type="email"
-                   {...register("email",{ required: true })}
-                  className="input"
-                  placeholder="Email"
-                />
-                <label className="label">Password</label>
-                <input
-                  name="password"
-                  type="password"
-                   {...register("password",{ required: true })}
-                  className="input"
-                  placeholder="Password"
-                />
-                <div>
-                  <a className="link link-hover">Forgot password?</a>
-                </div>
-                <button className="btn btn-neutral mt-4">Register</button>
-              </fieldset>
-            </form>
-            <h1 className="text-center">
-              Already have an aacount{" "}
-              <Link className="text-green-500" to="/login">
-                Please Login
-              </Link>{" "}
-            </h1>
 
+        {/* 🔹 Register Card */}
+        <div className="card bg-base-100 w-full max-w-md shadow-2xl">
+          <h1 className="text-3xl font-bold text-center text-primary mt-6">
+            Register Now!
+          </h1>
+
+          <div className="card-body">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              {/* Name */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text">Name</span>
+                </label>
+                <input
+                  type="text"
+                  {...register("name", { required: true })}
+                  placeholder="Enter your name"
+                  className="input input-bordered w-full"
+                />
+                {errors.name && (
+                  <span className="text-red-500 text-sm mt-1">
+                    Name is required
+                  </span>
+                )}
+              </div>
+
+              {/* Email */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  type="email"
+                  {...register("email", { required: true })}
+                  placeholder="Enter your email"
+                  className="input input-bordered w-full"
+                />
+                {errors.email && (
+                  <span className="text-red-500 text-sm mt-1">
+                    Email is required
+                  </span>
+                )}
+              </div>
+
+              {/* Password */}
+              <div className="form-control w-full">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type="password"
+                  {...register("password", { required: true })}
+                  placeholder="Enter your password"
+                  className="input input-bordered w-full"
+                />
+                {errors.password && (
+                  <span className="text-red-500 text-sm mt-1">
+                    Password is required
+                  </span>
+                )}
+                <label className="label">
+                  <a href="#" className="link link-hover text-sm">
+                    Forgot password?
+                  </a>
+                </label>
+              </div>
+
+              <button className="btn btn-primary w-full py-2 mt-2 text-lg hover:bg-primary-focus transition duration-300">
+                Register
+              </button>
+            </form>
+
+            <p className="text-center mt-4 text-sm">
+              Already have an account?{" "}
+              <Link to="/login" className="text-secondary font-semibold">
+                Please Login
+              </Link>
+            </p>
+
+            {/* Divider */}
+            <div className="divider my-4">OR</div>
+
+            {/* Social Login */}
+            <SocialLogin />
           </div>
-           <div className="divider">OR</div>
-          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

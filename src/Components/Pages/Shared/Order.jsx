@@ -1,80 +1,98 @@
 import { useState } from "react";
-import orderfood from "../../../assets/assets/shop/banner2.jpg"
+import orderfood from "../../../assets/assets/shop/banner2.jpg";
 import Cover from "./Cover";
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 import useMenu from "../../Hooks/useMenu";
 import FoodCard from "./FoodCard";
 import { useParams } from "react-router-dom";
-const Order = () => {
-    const categories=['salad','popular','dessert','pizza','soup','offered','drinks',]
-    const {category}=useParams()
-    const initalIndex=categories.indexOf(category)
-    const [tebIndex,setTabIndex]=useState(initalIndex)
-    const [menus]=useMenu()
-    
-      const saladItems=menus.filter(item=>item.category==="salad")
-     const popularItems=menus.filter(item=>item.category==="popular")
-     const dessertItems=menus.filter(item=>item.category==="dessert")
-     const pizzaItems=menus.filter(item=>item.category==="pizza")
-     const soupItems=menus.filter(item=>item.category==="soup")
-     const offeredItems=menus.filter(item=>item.category==="offered")
-     const drinksItems=menus.filter(item=>item.category==="drinks")
-    return (
-        <div>
-           <h1>This is food order page</h1>
-          <Cover image={orderfood} className='text-2xl  uppercase'
-           title="Order Food"></Cover>
-           {/* name of each tab group should be unique */}
-<Tabs defaultIndex={tebIndex} onSelect={(index) => setTabIndex(index)}>
-  <TabList>
-    <Tab>salad</Tab>
-    <Tab>popular</Tab>
-    <Tab>dessert</Tab>
-    <Tab>pizza</Tab>
-    <Tab>soup</Tab>
-    <Tab>offered</Tab>
-    <Tab>drinks</Tab>
-  </TabList>
-  <TabPanel>
-    <div className='grid lg:grid-cols-3 gap-5 md:grid-cols-2'>
-        {saladItems.map(item=> <FoodCard key={item._id} item={item}></FoodCard> )}
-    </div>
-  </TabPanel>
 
-  <TabPanel>
-   <div className='grid lg:grid-cols-3 md:grid-cols-2'>
-        {popularItems.map(item=> <FoodCard key={item._id} item={item}></FoodCard> )}
+// Icons for categories
+import {
+  FaLeaf,
+  FaStar,
+  FaIceCream,
+  FaPizzaSlice,
+  FaBowlFood,
+  FaTag,
+  FaGlassWater,
+} from "react-icons/fa6";
+
+const Order = () => {
+  const categories = [
+    { key: "salad", label: "Salad", icon: <FaLeaf /> },
+    { key: "popular", label: "Popular", icon: <FaStar /> },
+    { key: "dessert", label: "Dessert", icon: <FaIceCream /> },
+    { key: "pizza", label: "Pizza", icon: <FaPizzaSlice /> },
+    { key: "soup", label: "Soup", icon: <FaBowlFood /> },
+    { key: "offered", label: "Offered", icon: <FaTag /> },
+    { key: "drinks", label: "Drinks", icon: <FaGlassWater /> },
+  ];
+
+  const { category } = useParams();
+  const initialIndex = Math.max(
+    categories.findIndex((c) => c.key === category),
+    0
+  );
+
+  const [tabIndex, setTabIndex] = useState(initialIndex);
+  const [menus] = useMenu();
+
+  // Group items by category
+  const itemsByCategory = categories.reduce((acc, cat) => {
+    acc[cat.key] = menus.filter((item) => item.category === cat.key);
+    return acc;
+  }, {});
+
+  return (
+    <div className="w-full">
+      {/* 🔹 Cover */}
+      <Cover
+        image={orderfood}
+        title="Order Food"
+        subTitle="Delicious & Fresh"
+        className="uppercase text-2xl"
+      />
+
+      {/* 🔹 Tabs */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 mt-10">
+        <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
+          {/* Scrollable Tab List */}
+          <TabList className="flex gap-3 overflow-x-auto pb-3 border-b">
+            {categories.map((cat) => (
+              <Tab
+                key={cat.key}
+                className="cursor-pointer flex items-center gap-2 px-4 py-2 rounded-md whitespace-nowrap
+                           text-sm md:text-base font-medium border border-transparent
+                           hover:border-primary transition-all duration-200"
+                selectedClassName="bg-primary text-white shadow-md"
+              >
+                <span className="text-lg">{cat.icon}</span>
+                {cat.label}
+              </Tab>
+            ))}
+          </TabList>
+
+          {/* Tab Panels */}
+          {categories.map((cat) => (
+            <TabPanel key={cat.key}>
+              {itemsByCategory[cat.key].length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                  {itemsByCategory[cat.key].map((item) => (
+                    <FoodCard key={item._id} item={item} />
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center col-span-full text-gray-500 mt-10">
+                  No {cat.label} items available.
+                </p>
+              )}
+            </TabPanel>
+          ))}
+        </Tabs>
+      </div>
     </div>
-  </TabPanel>
-  <TabPanel>
-     <div className='grid lg:grid-cols-3 md:grid-cols-2'>
-        {dessertItems.map(item=> <FoodCard key={item._id} item={item}></FoodCard> )}
-    </div>
-  </TabPanel>
-  <TabPanel>
-     <div className='grid lg:grid-cols-3 md:grid-cols-2'>
-        {pizzaItems.map(item=> <FoodCard key={item._id} item={item}></FoodCard> )}
-    </div>
-  </TabPanel>
-  <TabPanel>
-     <div className='grid lg:grid-cols-3 md:grid-cols-2'>
-        {soupItems.map(item=> <FoodCard key={item._id} item={item}></FoodCard> )}
-    </div>
-  </TabPanel>
-  <TabPanel>
-     <div className='grid lg:grid-cols-3 md:grid-cols-2'>
-        {offeredItems.map(item=> <FoodCard key={item._id} item={item}></FoodCard> )}
-    </div>
-  </TabPanel>
-  <TabPanel>
-     <div className='grid lg:grid-cols-3 md:grid-cols-2'>
-        {drinksItems.map(item=> <FoodCard key={item._id} item={item}></FoodCard> )}
-    </div>
-  </TabPanel>
-</Tabs>
-        </div>
-    );
+  );
 };
 
 export default Order;
